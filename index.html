@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Bank Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="app">
+        <!-- ===== LOGIN VIEW ===== -->
+        <section id="login-view">
+            <div class="login-container">
+                <div class="login-box">
+                    <h2><i class="fa-solid fa-droplet"></i> Blood Bank Login</h2>
+                    <form id="login-form">
+                        <div class="input-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" required value="staff">
+                        </div>
+                        <div class="input-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required value="password123">
+                        </div>
+                        <p class="error-message" id="login-error"></p>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    <div class="login-info">
+                        <p>Use <strong>staff / password123</strong></p>
+                        <p>or <strong>supervisor / nitin123</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MAIN APP VIEW (HIDDEN INITIALLY) ===== -->
+        <div id="main-app" class="hidden">
+            <aside id="sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fa-solid fa-droplet"></i> BBMS</h3>
+                </div>
+                <nav id="main-nav">
+                    <ul>
+                        <li><a href="#dashboard" class="nav-link active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                        <li><a href="#inventory" class="nav-link"><i class="fas fa-boxes-stacked"></i><span>Inventory</span></a></li>
+                        <li><a href="#donations" class="nav-link"><i class="fas fa-hand-holding-droplet"></i><span>Donations</span></a></li>
+                        <li><a href="#reports" class="nav-link" data-role="supervisor"><i class="fas fa-chart-line"></i><span>Reports</span></a></li>
+                    </ul>
+                </nav>
+                <div class="sidebar-footer">
+                    <div id="user-profile">
+                        <span id="user-name-display"></span>
+                        <em id="user-role-display"></em>
+                    </div>
+                    <button id="logout-btn" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </aside>
+
+            <main id="main-content">
+                <!-- Views will be injected here -->
+                <section id="dashboard-view" class="view">
+                    <h1>Dashboard</h1>
+                    <div id="dashboard-cards" class="card-grid"></div>
+                </section>
+
+                <section id="inventory-view" class="view hidden">
+                    <div class="view-header">
+                        <h1>Blood Inventory</h1>
+                        <button id="add-inventory-btn" class="btn btn-primary"><i class="fas fa-plus"></i> Add Unit</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Blood Type</th>
+                                    <th>Units</th>
+                                    <th>Donation Date</th>
+                                    <th>Expiry Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventory-table-body"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="donations-view" class="view hidden">
+                     <div class="view-header">
+                        <h1>Donation Records</h1>
+                        <button id="add-donation-btn" class="btn btn-primary"><i class="fas fa-plus"></i> Add Donation</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Donor Name</th>
+                                    <th>Blood Type</th>
+                                    <th>Donation Date</th>
+                                    <th>Contact</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="donations-table-body"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="reports-view" class="view hidden">
+                    <h1>Supervisor Report</h1>
+                    <div id="report-content" class="report-paper">
+                        <h2>Inventory Summary</h2>
+                        <div id="report-summary-cards" class="card-grid"></div>
+                        <hr>
+                        <h2>Recent Activity</h2>
+                        <div id="report-recent-donations"></div>
+                        <div class="report-signature">
+                            <p>Approved By:</p>
+                            <img src="images/signature.png" alt="Supervisor Signature">
+                            <p><strong>Supervisor</strong></p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+    <!-- ===== MODAL ===== -->
+    <div id="modal-container" class="modal-container hidden">
+        <div class="modal-content">
+            <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+            <h2 id="modal-title"></h2>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- ===== TOAST NOTIFICATION ===== -->
+    <div id="toast-container"></div>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="database.js"></script>
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
